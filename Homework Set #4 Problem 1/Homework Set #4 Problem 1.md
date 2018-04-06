@@ -29,44 +29,59 @@ which means $\ln y$ and $x$ have a linear relationship. We could use the method 
 # np.polyfit(x, y, deg) returns a vector of coefficients
 # that minimises the squared error.
 
-%config InlineBackend.figure_format = 'retina'
+%config InlineBackend.figure_format = 'svg'
 import math
 import matplotlib.pyplot as plt
 
 b, lna = np.polyfit(x1, np.log(y1), 1)
 a = math.exp(lna)
+
+print("a = ", a, "b =", b)
+```
+
+    a =  4.204283604036693 b = 0.0273865212169
+    
+
+This indicates that the exponential function is 
+
+$$ y = 4.2 e^{0.0274x}$$
+
+Now we can plot the predicted value and actual population.
+
+
+```python
 predicted_y1 = a * np.exp(b * x1)
 
-plt.plot(x1, y1, '.')
-plt.plot(x1, predicted_y1, '-')
+plt.plot(x1 + 1790, y1, '.')
+plt.plot(x1 + 1790, predicted_y1, '-')
 ```
 
 
 
 
-    [<matplotlib.lines.Line2D at 0x2865e45e2e8>]
+    [<matplotlib.lines.Line2D at 0x1640bd0af60>]
 
 
 
 
-![png](output_3_1.png)
+![svg](output_5_1.svg)
 
 
 
 ```python
 # Residual plot
-plt.plot(x1, predicted_y1 - y1, '.')
+plt.plot(x1 + 1790, predicted_y1 - y1, '.')
 ```
 
 
 
 
-    [<matplotlib.lines.Line2D at 0x2865e890940>]
+    [<matplotlib.lines.Line2D at 0x1640be439e8>]
 
 
 
 
-![png](output_4_1.png)
+![svg](output_6_1.svg)
 
 
 # Logistic Regression
@@ -103,6 +118,19 @@ which means, $\ln \Big(\frac{L-y}{y}\Big)$ is linear with $x$. In this problem, 
 ```python
 L = 340
 b, a = np.polyfit(x2, np.log((L - y2) / y2), 1)
+
+print("a =", a, "b =", b)
+```
+
+    a = 4.35677585774 b = -0.0275780504044
+    
+
+This indicates that the logistic function is
+
+$$ y = \frac{340}{1 + e^{4.357+-0.0276x}}$$
+
+
+```python
 predicted_y2 = L / (1 + np.exp(a + b * x2))
 
 plt.plot(x2, y2, '.')
@@ -112,12 +140,12 @@ plt.plot(x2, predicted_y2, '-')
 
 
 
-    [<matplotlib.lines.Line2D at 0x2865e43c3c8>]
+    [<matplotlib.lines.Line2D at 0x1640be170f0>]
 
 
 
 
-![png](output_8_1.png)
+![svg](output_12_1.svg)
 
 
 
@@ -129,10 +157,10 @@ plt.plot(x2, predicted_y2 - y2, '.')
 
 
 
-    [<matplotlib.lines.Line2D at 0x2865ecd0f28>]
+    [<matplotlib.lines.Line2D at 0x1640c127748>]
 
 
 
 
-![png](output_9_1.png)
+![svg](output_13_1.svg)
 
